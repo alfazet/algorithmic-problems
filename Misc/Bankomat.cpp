@@ -1,67 +1,69 @@
-//XII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-const int maxn = 1003, maxl = 1e4 + 3;
+const int MAXN = 1003;
 
-typedef short int tab[10];
-tab *occs[maxn];
-int seq[maxl];
+vector <int> pos[MAXN][10];
 
-tab *genTab(int len){
-    tab *a = new tab[len];
-    int i = len - 1;
-    for (int j = 0; j <= 9; j++){
-        a[i][j] = -1;
-    }
-    a[i][seq[i]] = i;
-    for (int i = len - 2; i >= 0; i--){
-        for (int j = 0; j <= 9; j++){
-            a[i][j] = a[i + 1][j];
-        }
-        a[i][seq[i]] = i;
-    }
-    return a;
+string prepare(int pin){
+	string s;
+	if (pin < 1000){
+		s += '0';
+	}
+	if (pin == 0){
+		return s;
+	}
+	string p = to_string(pin);
+	char last = '!';
+	for (char c : p){
+		if (c != last){
+			s += c;
+			last = c;
+		}
+	}
+	return s;
 }
 
-bool check(int pin, tab *a){
-    int pos = 0, dig;
-    for (int i = 0; i <= 3; i++){
-        dig = pin % 10;
-        pin /= 10;
-        pos = a[pos][dig];
-        if (pos == -1){
-            return false;
-        }
-    }
-    return true;
+bool check(string s, int id){
+	int last_pos = -1, digit;
+	for (char c : s){
+		digit = (int) (c - '0');
+		auto it = upper_bound(pos[id][digit].begin(), pos[id][digit].end(), last_pos);
+		if (it == pos[id][digit].end()){
+			return false;
+		}
+		last_pos = pos[id][digit][it - pos[id][digit].begin()];
+	}
+	return true;
 }
 
 void solve(){
-    int n, sz;
-    char c;
-    cin >> n;
-    for (int i = 0; i < n; i++){
-        cin >> sz;
-        for (int i = 0; i < sz; i++){
-            cin >> c;
-            seq[i] = c - '0';
-        }
-        occs[i] = genTab(sz);
-    }
-    lli ans = 0;
-    for (int pin = 0; pin <= 9999; pin++){
-        int ok = 1;
-        for (int i = 0; i < n; i++){
-            ok &= check(pin, occs[i]);
-        }
-        ans += ok;
-    }
-    cout << ans << "\n";
+	int n, l; 
+	string s;
+	cin >> n;
+	for (int i = 0; i < n; i++){
+		cin >> l >> s;
+		for (int j = 0; j < l; j++){
+			pos[i][(int) (s[j] - '0')].push_back(j);
+		}
+	}
+	int ans = 0;
+	bool ok;
+	for (int pin = 0; pin <= 9999; pin++){
+		ok = true;
+		for (int i = 0; i < n; i++){
+			if (!check(prepare(pin), i)){
+				ok = false;
+				break;
+			}
+		}
+		ans += ok;
+	}
+	cout << ans << "\n";
 }
 
-int main (){
+int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
