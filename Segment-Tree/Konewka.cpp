@@ -1,5 +1,5 @@
+//XX OI
 #include <bits/stdc++.h>
-#warning wywal maina przed submitem
 typedef long long int lli;
 using namespace std;
 
