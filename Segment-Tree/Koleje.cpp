@@ -1,15 +1,8 @@
+//IX OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-/*
-CHANGE op AND neutral BEFORE USING
-OPTIONAL beggining array a (if there is one uncomment "build" function in init)
-Seg_tree st;
-st.init(n) - initializes a segment tree for array of size n
-st.query(1, 1, n, l, r) - returns query on [l, r]
-st.update(1, 1, n, l, r, v) - updates (adds or sets) v on [l, r]
-*/
 struct Seg_tree{
     const int INF_INT = 1e9 + 3;
     const lli INF_LL = 1e18 + 3;
