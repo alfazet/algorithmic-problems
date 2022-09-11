@@ -1,3 +1,4 @@
+//IX OI 
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
@@ -6,13 +7,6 @@ const int MAXN = 3e4 + 3;
 
 vector <int> adj[MAXN];
 
-/*
-REQUIRES adj (graph)
-LCA lca;
-lca.init(n) - init for a tree with n vertices
-lca.find_LCA(u, v) - returns LCA of u and v
-lca.get_dist(u, v) - return distance from u to v
-*/
 struct LCA{
     int n, lg;
     vector <int> depth;
