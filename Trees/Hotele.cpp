@@ -1,8 +1,7 @@
+//XXI OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
-
-//odp do max. testu: 20808342499
 
 const int maxn = 5003;
 
