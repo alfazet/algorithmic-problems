@@ -31,7 +31,6 @@ void solve(){
 			min_local = i;
 			cur = nxt[i];
 			while (cur != i){
-				// whats(cur);
 				if (mass[cur] < min_local_mass){
 					min_local_mass = mass[cur];
 					min_local = cur;
