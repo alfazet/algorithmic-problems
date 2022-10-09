@@ -3,7 +3,7 @@ typedef long long int lli;
 using namespace std;
 
 void solve(){
-    int n;
+	int n;
 	string s;
 	cin >> n >> s;
 	vector <int> p(n), min_p(n);
