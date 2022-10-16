@@ -6,7 +6,7 @@ using namespace std;
 const int MAXN = 1e5 + 3;
 
 lli ans[MAXN];
-int low[MAXN], pre[MAXN], sub_sz[MAXN], timer = 1, n; // sub_sz[v] nie uwzglednia v
+int low[MAXN], pre[MAXN], sub_sz[MAXN], timer = 1, n;
 vector <int> adj[MAXN], cut_comps[MAXN];
 
 void DFS(int v, int par){
