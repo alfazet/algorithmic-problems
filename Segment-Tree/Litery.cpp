@@ -36,9 +36,9 @@ void update(int i){
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-	
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
 	int n;
 	cin >> n;
 	string s, t;
@@ -47,7 +47,7 @@ int main(){
 	for (int i = 0; i < n; i++){
 		positions[s[i] - 'A'].push(i);
 	}
-	
+
 	lli ans = 0;
 	for (int i = 0; i < n; i++){
 		int closest = positions[t[i] - 'A'].front();
@@ -56,6 +56,6 @@ int main(){
 		update(closest);
 	}
 	cout << ans << "\n";
-	
-    return 0;
+
+	return 0;
 }
