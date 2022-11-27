@@ -8,19 +8,19 @@ int main(){
 
 	int b, q;
 	cin >> b >> q;
-	vector <lli> amount(b);
-	lli digSum = 0;
+	vector <lli> freq(b);
+	lli digit_sum = 0;
 	for (int i = 0; i < b; i++){
-		cin >> amount[i];
-		digSum += amount[i] * i;
+		cin >> freq[i];
+		digit_sum += freq[i] * i;
 	}
-	if (digSum % (b - 1) != 0){
-		amount[digSum % (b - 1)]--;
+	if (digit_sum % (b - 1) != 0){
+		freq[digit_sum % (b - 1)]--;
 	}
 	vector <lli> pref(b);
-	pref[0] = amount[0] - 1;
+	pref[0] = freq[0] - 1;
 	for (int i = 1; i < b; i++){
-		pref[i] = pref[i - 1] + amount[i];
+		pref[i] = pref[i - 1] + freq[i];
 	}
 
 	lli k;
