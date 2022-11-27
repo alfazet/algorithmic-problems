@@ -1,12 +1,10 @@
-//XXII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-const int MAXN = 2'000'003, BASE = (1 << 21);
+const int MAXN = 2e6 + 3, BASE = (1 << 21);
 
-int n, d;
-lli a[MAXN], covered[MAXN], st[2 * BASE + 3], p;
+lli a[MAXN], covered[MAXN], st[2 * BASE + 3];
 
 lli query(int l, int r){
 	l += BASE;
@@ -25,7 +23,12 @@ lli query(int l, int r){
 	return ans;
 }
 
-void solve(){
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	int n, d;
+	lli p;
 	cin >> n >> p >> d;
 	for (int i = 0; i < n; i++){
 		cin >> a[i];
@@ -66,15 +69,6 @@ void solve(){
 		used += temp;
 	}
 	cout << ans << "\n";
-}
-
-int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	int t = 1;
-	// cin >> t;
-	while (t--){
-		solve();
-	}
+	
 	return 0;
 }
