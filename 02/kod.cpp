@@ -8,7 +8,7 @@ using namespace __gnu_pbds;
 typedef tree <int, null_type, greater <int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
 int main(){
-	ios_base::sync_with_stdio(0);
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
 	int n;
