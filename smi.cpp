@@ -3,11 +3,6 @@
 typedef long long int lli;
 using namespace std;
 
-template<typename A, typename B> ostream& operator<<(ostream &os, const pair<A, B> &p) { return os << '(' << p.first << ", " << p.second << ')'; } 
-template<typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type> ostream& operator<<(ostream &os, const T_container &v) { os << '['; string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << ']'; }
-template<typename A, typename B> istream& operator>>(istream& cin, pair<A, B> &p) {cin >> p.first; return cin >> p.second;}
-#define whats(x) cout << #x << " is " << x << "\n";
-
 const int MAXN = 1e5 + 3;
 
 int deg[MAXN], cur_cycle_start;
