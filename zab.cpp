@@ -3,9 +3,9 @@ typedef long long int lli;
 using namespace std;
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-	
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
 	int n, k;
 	lli jumps;
 	cin >> n >> k >> jumps;
@@ -16,7 +16,7 @@ int main(){
 		ans[i] = i;
 	}
 	nxt[0] = k;
-	
+
 	int ptr = 0;
 	for (int i = 1; i < n; i++){
 		while (ptr + k + 1 < n && p[ptr + k + 1] - p[i] < p[i] - p[ptr]){
@@ -29,7 +29,7 @@ int main(){
 			nxt[i] = ptr + k;
 		}
 	}
-	
+
 	for (int b = 0; b <= 60; b++){
 		if ((1LL << b) & jumps){
 			for (int i = 0; i < n; i++){
@@ -45,6 +45,6 @@ int main(){
 		cout << ans[i] + 1 << " ";
 	}
 	cout << "\n";
-	
-    return 0;
+
+	return 0;
 }   
