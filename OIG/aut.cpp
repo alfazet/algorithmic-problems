@@ -16,7 +16,7 @@ struct P{
     lli operator *(const P &B) const{ // dot product
         return x * B.x + y * B.y;
     }
-	lli turn(const P &B, const P &C){ // sign of cos ABC
+	lli cos(const P &B, const P &C){ // sign of cos ABC
 		return (B - *this) * (C - B);
 	}
     
@@ -76,13 +76,13 @@ int main(){
     
     for (int i = 1; i <= m; i++){
 		for (int j = 1; j <= m; j++){
-			if (edges[i].v == edges[j].u && coords[edges[i].u].turn(coords[edges[i].v], coords[edges[j].v]) >= 0){
+			if (edges[i].v == edges[j].u && coords[edges[i].u].cos(coords[edges[i].v], coords[edges[j].v]) >= 0){
 				adj[i].push_back({j, edges[i].w + edges[j].w});
 			}
 		}
 	}
 		
-	vector <lli> times;
+	vector <lli> ans;
 	int u, v;
 	lli t;
 	cin >> u;
@@ -104,7 +104,7 @@ int main(){
 			cout << "NIE\n";
 			return 0;
 		}
-		times.push_back((times.empty() ? 0 : times.back()) + t);
+		ans.push_back((ans.empty() ? 0 : ans.back()) + t);
 		u = v;
 	}
 	for (lli t : times){
