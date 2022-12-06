@@ -31,10 +31,8 @@ void propagate(int i, int s, int e, int val){
 }
 
 int query(int i, int s, int e, int l, int r){
-    if (lazy[i] != 0){
-        propagate(i, s, e, lazy[i]);
-        lazy[i] = 0;
-    }
+    propagate(i, s, e, lazy[i]);
+    lazy[i] = 0;
     
     if (l > e || r < s){
         return 0;
@@ -48,10 +46,8 @@ int query(int i, int s, int e, int l, int r){
 }
 
 void update(int i, int s, int e, int l, int r, int val){
-    if (lazy[i] != 0){
-        propagate(i, s, e, lazy[i]);
-        lazy[i] = 0;
-    }
+    propagate(i, s, e, lazy[i]);
+    lazy[i] = 0;
     
     if (l > e || r < s){
         return;
