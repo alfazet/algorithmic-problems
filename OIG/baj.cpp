@@ -68,11 +68,11 @@ int main(){
 		for (auto [u, v, w, i] : edges[w]){
 			u = ds.find(u);
 			v = ds.find(v);
-			if (u != v){ // this edge could've been the first of this weight and it would've been picked to the MST - so we add its CC to the graph
+			if (u != v){ // this edge could've been the first of this weight and it would've been picked to the MST
 				ans[i] = 1;
 			}
 		}
-		for (auto [u, v, w, i] : edges[w]){ // we connect CCs with the edges that are in some MST
+		for (auto [u, v, w, i] : edges[w]){ // we connect with the edges that are in some MST
 			u = ds.find(u);
 			v = ds.find(v);
 			if (ans[i] != 0){ 
