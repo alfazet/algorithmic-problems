@@ -1,4 +1,3 @@
-// XXVIII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;	
@@ -9,24 +8,25 @@ using namespace std;
 const int MAXN = 1e4 + 3, MAXK = 103, MAXS = 2.5e4 + 3;
 const lli INF = 9e18 + 3;
 
-// dp[v][k] - najkrtosza minuta dotarcia do v jadąc k autobusami
-lli dp[MAXN][MAXK], steps[MAXS]; // co ile minut jest dana linia
-vector <pair <int, lli>> lines[MAXS]; 
-// lines[x][i] = {v, t} = i-ty przystanek linii x to v oraz jest ona tam w minucie t (po raz pierwszy)
-unordered_map <int, int> edges[MAXN];
+lli dp[MAXN][MAXK], steps[MAXS]; // dp[v][k] - time of getting to v with k buses
+vector <pair <int, lli>> lines[MAXS]; // lines[x][i] = {v, t} = i-th stop of line x is v and it arrives there (for the first time) at time t
+map <int, int> edges[MAXN];
 
 lli cdiv(lli a, lli b){
 	return (a + b - 1) / b;
 }
 
-lli next_bus_time(int l, int i, lli t){ // minuta odjazdu kolejnego autobusu linii l z jej i-tego przystanku, jeżeli teraz jest minuta t
+lli next_bus_time(int l, int i, lli t){ // time of next departure of line l from stop i, if the current time is t
 	if (t <= lines[l][i].ss){
 		return lines[l][i].ss;
 	}
 	return lines[l][i].ss + steps[l] * cdiv(t - lines[l][i].ss, steps[l]);
 }
 
-void solve(){
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
 	int n, m, s, used_buses, a, b, l, v, v_0;
 	lli t_0, w, first, so_far;
 	cin >> n >> m >> s >> used_buses >> t_0;
@@ -66,22 +66,12 @@ void solve(){
 			}
 		}
 	}
-	
 	lli ans = INF;
 	for (int i = 0; i <= used_buses; i++){
 		ans = min(ans, dp[n][i]);
 	}
 	if (ans == INF) cout << "NIE\n";
 	else cout << ans << "\n";
-}
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t = 1;
-    // cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }   
