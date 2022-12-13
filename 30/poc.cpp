@@ -3,9 +3,9 @@ typedef long long int lli;
 using namespace std;
 
 int main(){
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-	
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
 	int n, m, k;
 	cin >> n >> m >> k;
 	vector <int> a(n), b(m), ans(n);
@@ -29,13 +29,13 @@ int main(){
 			break;
 		}
 	}
-	
+
 	int limit = n;
 	vector <int> last_unchecked_occ(k + 1);
 	for (int i = 1; i <= k; i++){
 		last_unchecked_occ[i] = (int) pos[i].size() - 1;
 	}
-	
+
 	for (int i = m - 1; i >= 0; i--){
 		while (pos[b[i]].back() >= limit){
 			pos[b[i]].pop_back();
@@ -51,11 +51,11 @@ int main(){
 		}
 		last_unchecked_occ[b[i]] = j - 1;
 	}
-	
+
 	for (int x : ans){
 		cout << x << " ";
 	}
 	cout << "\n";
-  
-  return 0;
+
+	return 0;
 }
