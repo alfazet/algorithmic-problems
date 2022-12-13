@@ -9,7 +9,7 @@ int main(){
 	int n, H, ans = 0, dh = 0;
 	char c;
 	cin >> n >> H;
-  vector <int> h(n + 1);
+  	vector <int> h(n + 1);
 	for (int i = 1; i <= n; i++){
 		h[i] = h[i - 1];
 		cin >> c;
