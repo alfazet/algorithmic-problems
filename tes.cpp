@@ -1,4 +1,3 @@
-//XVII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
@@ -13,7 +12,7 @@ bool check(const vector <int> &a){
         if (occs[x].empty()){
             return false;
         }
-        vector <int> :: iterator it = upper_bound(occs[x].begin(), occs[x].end(), last_used);
+        auto it = upper_bound(occs[x].begin(), occs[x].end(), last_used);
         if (it - occs[x].begin() == (int) occs[x].size()){
             return false;
         }
@@ -26,7 +25,10 @@ bool check(const vector <int> &a){
     return true;
 }
 
-void solve(){
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n, x, q, m;
     cin >> n;
     vector <int> a;
@@ -43,16 +45,6 @@ void solve(){
         }
         cout << (check(a) ? "TAK\n" : "NIE\n");
     }
-}
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }
