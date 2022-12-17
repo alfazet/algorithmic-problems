@@ -63,7 +63,7 @@ void update(int id, int nowy){
 	typ[id] = nowy;
 	auto[u, v] = edges[id];
 	if (parent[u] == v){
-		swap(u, v); // v głębiej
+		swap(u, v);
 	}
 	for (int i = 1; i <= cnt_big; i++){
 		int big = normal_id[i];
