@@ -1,12 +1,10 @@
-//III OIG
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-const int MAXN = 3e5 + 3, MAXK = 23;
+const int MAXN = 3e5 + 3;
 
-int tree[MAXN], dp[MAXN][MAXK], k, ti = 1; // dp[v][i] = max. suma przy wzięciu i par kart z poddrzewa v
-// ti = tree index
+int tree[MAXN], dp[MAXN][23], k, ti = 1; // dp[v][i] = max. sum if we take i cards from subtree v
 
 void DFS(int v){
 	dp[v][1] = tree[v];
@@ -21,7 +19,10 @@ void DFS(int v){
 	}
 }
 
-void solve(){
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+	
 	int n, x, y;
 	cin >> n >> k;
 	k /= 2;
@@ -38,16 +39,6 @@ void solve(){
 		ans = max(ans, dp[1][j]);
 	}
 	cout << ans << "\n";
-}
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }   
