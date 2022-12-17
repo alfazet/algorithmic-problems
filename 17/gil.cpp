@@ -1,28 +1,30 @@
-//XVII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std; 
 
-const int maxn = 2e5 + 3;
+const int MAXN = 2e5 + 3;
 
-vector <int> adj[maxn];
-bool vis[maxn];
-int color[maxn];
+vector <int> adj[MAXN];
+bool vis[MAXN];
+int color[MAXN];
 
-void dfs(int node, int cl){
-	vis[node] = true;
-	if (color[node] == 0){
-		color[node] = cl;	
+void DFS(int v, int c){
+	vis[v] = true;
+	if (color[v] == 0){
+		color[v] = c;	
 	}
 	
-	for (int child : adj[node]){
+	for (int child : adj[v]){
 		if (!vis[child]){
-			dfs(child, (cl == 1 ? 2 : 1));
+			DFS(child, (c == 1 ? 2 : 1));
 		}
 	}
 }
 
-void solve(){
+int main (){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
 	int n, m, a, b;
 	cin >> n >> m;
 	for (int i = 0; i < m; i++){
@@ -33,26 +35,16 @@ void solve(){
 	for (int i = 1; i <= n; i++){
 		if (adj[i].empty()){
 			cout << "NIE\n";
-			return;
+			return 0;
 		}
 		if (!vis[i]){
-			dfs(i, 1);
+			DFS(i, 1);
 		}
 	}
 	cout << "TAK\n";
 	for (int i = 1; i <= n; i++){
 		cout << (color[i] == 1 ? "K\n" : "S\n");
 	}
-}
 
-int main (){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }
