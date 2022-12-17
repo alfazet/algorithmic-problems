@@ -13,16 +13,16 @@ int DFS(int v, int par, int dep, int distinct, int e_id, vector <int> &f){
 	pre[v] = timer++;
 	parent[v] = par;
 	edge_to_par[v] = e_id;
-	bool nowy = false;
+	bool new_type = false;
 	int deepest_path = 0;
 	
 	for (auto [u, id] : adj[v]){
 		if (u != par){
 			f[typ[id]]++;
 			if (f[typ[id]] == 1){
-				nowy = true;
+				new_type = true;
 			}
-			deepest_path = max(deepest_path, DFS(u, v, dep + 1, distinct + nowy, id, f) + 1);
+			deepest_path = max(deepest_path, DFS(u, v, dep + 1, distinct + new_type, id, f) + 1);
 			f[typ[id]]--;
 		}
 	}
@@ -58,9 +58,9 @@ int query(int v){
 	return ans;
 }
 
-void update(int id, int nowy){
-	int stary = typ[id];
-	typ[id] = nowy;
+void update(int id, int new_type){
+	int old_type = typ[id];
+	typ[id] = new_type;
 	auto[u, v] = edges[id];
 	if (parent[u] == v){
 		swap(u, v);
@@ -68,12 +68,12 @@ void update(int id, int nowy){
 	for (int i = 1; i <= cnt_big; i++){
 		int big = normal_id[i];
 		if (pre[big] >= pre[v] && post[big] <= post[v]){
-			freq[i][stary]--;
-			if (freq[i][stary] == 0){
+			freq[i][old_type]--;
+			if (freq[i][old_type] == 0){
 				cnt[i]--;
 			}
-			freq[i][nowy]++;
-			if (freq[i][nowy] == 1){
+			freq[i][new_type]++;
+			if (freq[i][new_type] == 1){
 				cnt[i]++;
 			}
 		}
