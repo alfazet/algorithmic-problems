@@ -1,21 +1,26 @@
-//XXIV OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-void solve(){
+#define ff first
+#define ss second
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n, X, x, a, b, prev_x = 0, low, high;
     cin >> n >> X;
     lli ans = 0;
     if (n == 0){
         cout << "0\n";
-        return;
+        return 0;
     }
-    pair <int, int> range = make_pair(0, 0); //low, high
+    pair <int, int> range = {0, 0};
     for (int i = 0; i < n; i++){
         cin >> x >> a >> b;
-        low = max(a + 1, range.first - (x - prev_x));
-        high = min(b - 1, range.second + (x - prev_x));
+        low = max(a + 1, range.ff - (x - prev_x));
+        high = min(b - 1, range.ss + (x - prev_x));
         if (x % 2 == 0){
             if (low % 2 != 0){
                 low++;
@@ -34,24 +39,14 @@ void solve(){
         }
         if (low > high){
             cout << "NIE\n";
-            return;
+            return 0;
         }
-        range.first = low;
-        range.second = high;
+        range.ff = low;
+        range.ss = high;
         prev_x = x;
     }
     int min_ending_height = low - X + prev_x;
     cout << (X + min_ending_height) / 2 << "\n";
-}
 
-int main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    int t;
-    //cin >> t;
-    t = 1;
-    while (t--){
-        solve();
-    }
     return 0;
 }
