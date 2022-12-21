@@ -1,9 +1,11 @@
-//II OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-void solve(){
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n, c, d, k, x, all_p_sum = 0;
     lli first_cost = 0;
     cin >> n >> c;
@@ -22,33 +24,22 @@ void solve(){
             first_cost += d_pref[i].back() * k;
         }
     }
-    lli best = first_cost, cost;
+    lli ans = first_cost, cost;
     int len;
-    pair <int, int> where = make_pair(0, 0);
+    pair <int, int> where = {0, 0};
     for (int i = 0; i < n; i++){
         cost = first_cost;
         len = p_pref[i].size() - 1;
         for (int j = 1; j <= len; j++){
             cost += (all_p_sum - p_pref[i].back() + p_pref[i][j - 1]) * dists[i][j - 1];
             cost -= (p_pref[i].back() - p_pref[i][j - 1]) * dists[i][j - 1];
-            if (cost < best){
-                best = cost;
-                where = make_pair(i + 1, j);
+            if (cost < ans){
+                ans = cost;
+                where = {i + 1, j};
             }
         }
     }
-    cout << best << "\n";
-    cout << where.first << " " << where.second << "\n";
-}
+    cout << ans << "\n" << where.first << " " << where.second << "\n";
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    //cin >> t;
-    t = 1;
-    while (t--){
-        solve();
-    }
     return 0;
-}
+}   
