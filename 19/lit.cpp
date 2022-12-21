@@ -52,7 +52,7 @@ int main(){
 	for (int i = 0; i < n; i++){
 		int closest = positions[t[i] - 'A'].front();
 		positions[t[i] - 'A'].pop();
-		ans += closest - i + query(closest + 1, n); // roznica pozycji + o ile przesunęła się litera
+		ans += closest - i + query(closest + 1, n);
 		update(closest);
 	}
 	cout << ans << "\n";
