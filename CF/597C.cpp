@@ -24,17 +24,6 @@ struct SegTree{
 	int n;
 	vector <T> st, lazy;
 	
-	void build(int i, int s, int e, const vector <int> &a){
-		if (s == e){
-			st[i] = a[s];
-			return;
-		}
-		int mid = (s + e) / 2;
-		build(2 * i, s, mid, a);
-		build(2 * i + 1, mid + 1, e, a);
-		st[i] = st[2 * i].op(st[2 * i + 1]);
-	}
-	
 	SegTree(int n_ = MAXN, vector <int> a = {}) : n(n_) {
 		int base = 1;
 		while (base <= n){
@@ -46,6 +35,17 @@ struct SegTree{
 			build(1, 0, n, a);
 		}
 	}; 
+	
+	void build(int i, int s, int e, const vector <int> &a){
+		if (s == e){
+			st[i] = a[s];
+			return;
+		}
+		int mid = (s + e) / 2;
+		build(2 * i, s, mid, a);
+		build(2 * i + 1, mid + 1, e, a);
+		st[i] = st[2 * i].op(st[2 * i + 1]);
+	}
 	
 	void propagate(int i, int s, int e, T val){
 		st[i] = st[i].lazy_op(val, e - s + 1);
