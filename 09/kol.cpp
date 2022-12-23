@@ -2,76 +2,119 @@
 typedef long long int lli;
 using namespace std;
 
-const int BASE = (1 << 16);
+struct Max{
+	static const int neutral = -(1e9 + 3);
+	int val;
 
-int n, st[2 * BASE + 3], lazy[2 * BASE + 3];
+	Max() : val(0) {};
+	Max(int val_) : val(val_) {};
 
-void propagate(int i, int s, int e, int val){
-	st[i] += val;
-	if (s != e){
-		lazy[2 * i] += val;
-		lazy[2 * i + 1] += val;
+	Max op(Max other){
+		return Max(max(val, other.val));
 	}
-}
+	Max lazy_op(Max v, int sz){
+		return Max(val + v.val);
+	}
+};
 
-int query(int i, int s, int e, int l, int r){
-	if (lazy[i] != 0){
-		propagate(i, s, e, lazy[i]);
-		lazy[i] = 0;
-	}
-	
-	if (l <= s && e <= r){
-		return st[i];
-	}
-	if (l > e || s > r){
-		return 0;
-	}
-	
-	int mid = (s + e) / 2;
-	return max(query(2 * i, s, mid, l, r), query(2 * i + 1, mid + 1, e, l, r));
-}
+template <typename T>
+struct SegTree{
+	int n;
+	vector <T> st, lazy;
 
-int query(int l, int r){
-	return query(1, 1, n, l, r);
-}
+    void init(int n_, vector <int> a = {}){
+        n = n_;
+        int base = 1;
+        while (base <= n){
+            base *= 2;
+        }
+        st.resize(2 * base + 3);
+        lazy.resize(2 * base + 3);
+        if (!a.empty()){
+            build(1, 1, n, a);
+        }
+    }
 
-void update(int i, int s, int e, int l, int r, int val){
-	if (lazy[i] != 0){
-		propagate(i, s, e, lazy[i]);
-		lazy[i] = 0;
-	}
-	
-	if (l <= s && e <= r){
-		propagate(i, s, e, val);
-		return;
-	}
-	if (l > e || s > r){
-		return;
-	}
-	
-	int mid = (s + e) / 2;
-	update(2 * i, s, mid, l, r, val);
-	update(2 * i + 1, mid + 1, e, l, r, val);
-	st[i] = max(st[2 * i], st[2 * i + 1]);
-}
+    void build(int i, int s, int e, const vector <int> &a){
+        if (s == e){
+            st[i] = a[s];
+            return;
+        }
+        int mid = (s + e) / 2;
+        build(2 * i, s, mid, a);
+        build(2 * i + 1, mid + 1, e, a);
+        st[i] = st[2 * i].op(st[2 * i + 1]);
+    }
 
-void update(int l, int r, int val){
-	update(1, 1, n, l, r, val);
-}
+	void propagate(int i, int s, int e, T val){
+		st[i] = st[i].lazy_op(val, e - s + 1);
+		if (s != e){
+			lazy[2 * i].val += val.val;
+			lazy[2 * i + 1].val += val.val;
+		}
+	}
+
+	T query(int i, int s, int e, int l, int r){
+		if (lazy[i].val != 0){
+			propagate(i, s, e, lazy[i]);
+			lazy[i].val = 0;
+		}
+		
+		if (l <= s && e <= r){
+			return st[i];
+		}
+		if (l > e || s > r){
+			return T::neutral;
+		}
+		
+		int mid = (s + e) / 2;
+		return query(2 * i, s, mid, l, r).op(query(2 * i + 1, mid + 1, e, l, r));
+	}
+
+	T query(int l, int r){
+		return query(1, 1, n, l, r);
+	}
+
+	void update(int i, int s, int e, int l, int r, int val){
+		if (lazy[i].val != 0){
+			propagate(i, s, e, lazy[i]);
+			lazy[i].val = 0;
+		}
+		
+		if (l <= s && e <= r){
+			propagate(i, s, e, val);
+			return;
+		}
+		if (l > e || s > r){
+			return;
+		}
+		
+		int mid = (s + e) / 2;
+		update(2 * i, s, mid, l, r, val);
+		update(2 * i + 1, mid + 1, e, l, r, val);
+		st[i] = st[2 * i].op(st[2 * i + 1]);
+	}
+
+	void update(int l, int r, int val){
+		update(1, 1, n, l, r, val);
+	}
+};
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 	
-	int capacity, q, p, k, l;
+	int n, capacity, q, p, k, l;
 	cin >> n >> capacity >> q;
+	SegTree <Max> st;
+	st.init(n);
 	for (int i = 0; i < q; i++){
 		cin >> p >> k >> l;
-		if (query(p, k - 1) + l > capacity){
+		if (st.query(p, k - 1).val + l > capacity){
 			cout << "N\n";
 		}
 		else{
-			update(p, k - 1, l);
+			st.update(p, k - 1, l);
 			cout << "T\n";
 		}
 	}
