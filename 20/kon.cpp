@@ -164,8 +164,8 @@ int dojrzale(int l, int r){
         if (mx < limit){
             break;
         }
-        st.update(i, i, -INF); // "remove" from segment tree
-        bit.update(i, 1); // add to BIT
+        st.update(i, i, -INF); // "remove" this tree...
+        bit.update(i, 1); // ...and add to the BIT that counts mature trees
     }
     return bit.query(l, r);
 }
