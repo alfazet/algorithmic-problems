@@ -8,15 +8,15 @@ struct DSU{
 	int n;
 	vector <int> par, sz;
 	
-	DSU(int n_) : n(n_) {
+	void init(int n_){
+        n = n_;
 		par.resize(n + 1);
 		sz.resize(n + 1);
-		
 		for (int i = 1; i <= n; i++){
 			par[i] = i;
 			sz[i] = 1;
 		}
-	};
+	}
 	
 	int find(int x){
 		if (x == par[x]){
@@ -83,7 +83,8 @@ int main(){
 		edges[w].emplace_back(a, b, w, i);
 	}
 	
-	DSU ds(n);
+	DSU ds;
+    ds.init(n);
 	for (int w = 1; w < MAXW; w++){
 		for (auto [u, v, w, i] : edges[w]){
 			u = ds.find(u);
