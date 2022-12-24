@@ -14,7 +14,7 @@ struct BIT{
         bit.resize(n + 1);
         if (!a.empty()){
             for (int i = 1; i <= n; i++){
-                update(i, a[i]);
+                update(i, a[i - 1]);
             }
         }
     }
