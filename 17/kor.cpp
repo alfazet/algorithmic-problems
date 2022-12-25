@@ -61,7 +61,7 @@ int main(){
     for (int k = 1; k <= n; k++){
         set <pair <lli, lli>> st;
         for (int j = 0; j <= n - k; j += k){
-            st.insert({min(get_substr_hash(h1, j, j + k - 1, 0), get_substr_hash(rh1, n - j - k + 1 - 1, n - j - 1, 0)), min(get_substr_hash(h2, j, j + k - 1, 1), get_substr_hash(rh2, n - j - k + 1 - 1, n - j - 1, 1))});
+            st.insert({min(get_substr_hash(h1, j, j + k - 1, 0), get_substr_hash(rh1, n - j - k + 1 - 1, n - j - 1, 0)), min(get_substr_hash(h2, j, j + k - 1, 1), get_substr_hash(rh2, n - j - k + 1 - 1, n - j - 1, 1))}); // we say that min(hash(A), hash(A^R)) is the hash for both of them since we want hash(A) = hash(A^R)
         }
         ans[k] = st.size();
     }
