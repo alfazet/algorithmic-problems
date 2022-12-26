@@ -8,7 +8,6 @@ vector <int> adj[2 * MAXN];
 int n, dist[2 * MAXN];
 
 void BFS(int v){
-
     for (int i = 1; i <= n; i++){
         dist[i] = INF;
         dist[i + MAXN] = INF;
