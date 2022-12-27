@@ -23,7 +23,7 @@ int main(){
         }
     }
 
-    vector <int> min_prefsuf(n);
+    vector <int> min_prefsuf(n); // longest period of s = s - min prefsuf of s  
     min_prefsuf[0] = 1;
     for (int i = 1; i < n; i++){
         min_prefsuf[i] = (p[i] == 0 ? i + 1 : p[i]);
