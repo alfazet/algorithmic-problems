@@ -1,17 +1,15 @@
-//XXII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-bool inside(int &n, int &m, int i, int j){
-    if (i < 0 || i >= n || j < 0 || j >= m){
-        return false;
-    }
-    return true;
+int n, m;
+
+bool inside(int i, int j){
+    return i >= 0 && i < n && j >= 0 && j < m;
 }
 
 void solve(){
-    int n, m, a, b;
+    int a, b;
     int topx, topy, newx, newy;
     cin >> n >> m >> a >> b;
     string grid[n], seal[a];
@@ -41,8 +39,7 @@ void solve(){
                 for (pair <int, int> p : trans){
                     newx = i + p.first;
                     newy = j + p.second;
-                    if (inside(n, m, newx, newy)){
-                        //cout << "grid[i][j] = " << grid[newx][newy] << "\n";
+                    if (inside(newx, newy)){
                         if (grid[newx][newy] != 'x'){
                             cout << "NIE\n";
                             return;
@@ -60,11 +57,10 @@ void solve(){
     cout << "TAK\n";
 }
 
-int main (){
+int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
-    //t = 1;
+    int t = 1;
     cin >> t;
     while (t--){
         solve();
