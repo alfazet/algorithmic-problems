@@ -1,4 +1,4 @@
-// "Magic" - EJOI 2017
+// EJOI 2017
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
