@@ -115,9 +115,11 @@ int main(){
         cin >> a[i];
     }
 
+    vector <lli> b(n + 1, INF);
+    b[n] = n;
+
     SegTree <Min> st;
-    st.init(n);
-    st.update(n, n, n);
+    st.init(n, b);
 
     lli ans = 0;
     dp[n] = 0;
