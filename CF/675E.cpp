@@ -109,7 +109,7 @@ int main(){
     int n;
     cin >> n;
     vector <int> a(n);
-    vector <lli> dp(n + 1);
+    vector <lli> dp(n + 1); // dp[i] = sum of p_ij for i < j 
 
     for (int i = 1; i < n; i++){
         cin >> a[i];
