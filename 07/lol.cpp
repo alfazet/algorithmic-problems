@@ -3,7 +3,7 @@ typedef long long int lli;
 using namespace std;
 
 void solve(){
-    int n, lider = 0;
+    int n, leader = 0;
     cin >> n;
     vector <int> a(n);
     for (int i = 0; i < n; i++){
@@ -27,22 +27,22 @@ void solve(){
         }
     }
     if (cnt > n / 2){
-        lider = cand;
+        leader = cand;
     }
 
     if (cnt > (n + 1) / 2){
         cout << "NIE\n";
         return;
     }
-    if (!lider){
+    if (leader == 0){
         cout << "TAK\n";
         return;
     }
 
     int bigger = 0, smaller = 0;
     for (int x : a){
-        if (x != lider){
-            if (x > lider){
+        if (x != leader){
+            if (x > leader){
                 bigger++;
             }
             else{
