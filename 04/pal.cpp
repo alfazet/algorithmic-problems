@@ -1,4 +1,3 @@
-//IV OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
@@ -6,8 +5,11 @@ using namespace std;
 #define amount first
 #define price second
 
-void solve(){
-	int cap, n;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int cap, n;
 	cin >> cap >> n;
 	vector <int> p(n), d(n);
 	for (int i = 0; i < n; i++){
@@ -15,7 +17,7 @@ void solve(){
 	}
 	
 	int ans = 0, cur_fuel = 0, to_drive, delta;
-	deque <pair <int, int>> tank; //pary {amount, price}, back = droga, front = tania
+	deque <pair <int, int>> tank; //pairs {amount, price}, back = expensive, front = cheap
 	for (int i = 0; i < n; i++){
 		while (!tank.empty() && tank.back().price >= p[i]){
 			ans -= tank.back().amount * tank.back().price;
@@ -42,15 +44,6 @@ void solve(){
 		tank.pop_back();
 	}
 	cout << ans << "\n";
-}
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }   
