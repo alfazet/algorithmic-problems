@@ -1,4 +1,3 @@
-//II OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
@@ -11,25 +10,23 @@ void solve(){
         return;
     }
     vector <string> ans(n);
+    ans[1] = "1";
     queue <int> q;
     q.push(1);
-    ans[1] = "1";
+
     while (!q.empty()){
-        int rem = q.front();
+        int r = q.front();
         q.pop();
-        if (rem == 0){
-            cout << ans[rem] << "\n";
+        if (r == 0){
+            cout << ans[r] << "\n";
             return;
         }
-        int r1 = (10 * rem) % n;
-        if (ans[r1].empty()){
-            ans[r1] = ans[rem] + '0';
-            q.push(r1);
-        }
-        int r2 = (10 * rem + 1) % n;
-        if (ans[r2].empty()){
-            ans[r2] = ans[rem] + '1';
-            q.push(r2);
+        for (int d = 0; d <= 1; d++){
+            int new_r = (r * 10 + d) % n;
+            if (ans[new_r].empty()){
+                q.push(new_r);
+                ans[new_r] = ans[r] + (char) ('0' + d);
+            }
         }
     }
 }
@@ -37,11 +34,10 @@ void solve(){
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
-    //t = 1;
+    int t = 1;
     cin >> t;
     while (t--){
         solve();
     }
     return 0;
-}
+}   
