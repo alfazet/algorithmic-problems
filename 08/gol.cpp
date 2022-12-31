@@ -1,11 +1,10 @@
-//VIII OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
 const int P = 19;
 
-// nie mozna uzyc P w tych rozkladach
+// can't use P = 19 in these decompositions
 vector <lli> intervals = {P + 10 - 1}, last_prime_in_interval = {0};
 vector <int> precomp[P] = {{3, 7}, {11}, {5, 7}, {13}, {3, 11}, {3, 5, 7}, {3, 13}, {17}, {7, 11}, {3, 5, 11}, {7, 13}, {3, 7, 11}, {5, 17}, 
 {3, 7, 13}, {7, 17}, {3, 5, 17}, {3, 5, 7, 11}, {3, 11, 13}, {11, 17}};
@@ -47,7 +46,10 @@ vector <int> decompose(int n){
 	return ans;
 }
 
-void solve(){
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
 	fill_intervals();
 	int q, n;
 	cin >> q;
@@ -61,15 +63,6 @@ void solve(){
 		}
 		cout << "\n";
 	}
-}
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }   
