@@ -1,11 +1,10 @@
-//II OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
-const int maxn = 5002;
+const int MAXN = 5003;
 
-vector <int> adj[maxn], traversal;
+vector <int> adj[MAXN], traversal;
 
 void DFS(int par, int v, int parity){
     if (parity == 0){
@@ -21,7 +20,10 @@ void DFS(int par, int v, int parity){
     }
 }
 
-void solve(){
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n, a, b;
     cin >> n;
     for (int i = 0; i < n - 1; i++){
@@ -33,16 +35,6 @@ void solve(){
     for (int x : traversal){
         cout << x << "\n";
     }
-}
 
-int main (){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
-}
+}   
