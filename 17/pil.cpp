@@ -17,18 +17,20 @@ struct Window{
 		q.emplace_back(x, cnt);
 	}
 	
-	void pop(){
-		if (q.front().ss == 0){
-			q.pop_front();
-		}
-		else{
-			q.front().ss--;
-		}
-	}
-	
-	int query(){ // max
-		return q.front().ff;
-	}
+    void pop(){
+        assert(!q.empty());
+        if (q.front().ss == 0){
+            q.pop_front();
+        }
+        else{
+            q.front().ss--;
+        }
+    }
+
+    int query(){
+        assert(!q.empty());
+        return q.front().ff.ff;
+    }
 };
 
 int main(){
