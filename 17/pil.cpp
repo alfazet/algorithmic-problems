@@ -6,7 +6,7 @@ using namespace std;
 #define ss second
 
 struct Window{
-	deque <pair <int, int>> q; // {value, count}
+	deque <pair <int, int>> q; // {value, how many other elements are "covered" by it}
 	
 	void push(int x){
 		int cnt = 0;
