@@ -1,27 +1,57 @@
-//XIX OI
 #include <bits/stdc++.h>
 typedef long long int lli;
 using namespace std;
 
 const int MAXN = 1e6 + 3, INF = 1e9 + 3;
 
-int mx, occ1[MAXN], occ2[MAXN], lpf[MAXN], factorization[MAXN], dist_to_marked[MAXN], dist_to_other_marked[MAXN], closest_marked[MAXN], other_closest_marked[MAXN];;
+int occ1[MAXN], occ2[MAXN], lpf[MAXN], factorization[MAXN], dist_to_marked[MAXN], dist_to_other_marked[MAXN], closest_marked[MAXN], other_closest_marked[MAXN];
 vector <int> adj[MAXN];
 
-void fill_lpf(){
-	vector <int> primes;
-	for (int i = 2; i <= mx; i++){
-		if (lpf[i] == 0){
-			lpf[i] = i;
-			primes.push_back(i);
-		}
-		for (int j = 0; j < (int) primes.size() && primes[j] <= lpf[i] && i * primes[j] <= mx; j++){
-			lpf[i * primes[j]] = primes[j];
-		}
-	}
-}
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-void BFS1(){
+	int n, mx = 0;
+    cin >> n;
+	vector <int> a(n);
+    for (int i = 0; i < n; i++){
+        cin >> a[i];
+        mx = max(mx, a[i]);
+        if (!occ1[a[i]]){
+            occ1[a[i]] = i + 1;
+        }
+        else if (!occ2[a[i]]){
+            occ2[a[i]] = i + 1;
+        }
+    }
+
+    iota(lpf + 1, lpf + mx + 1, 1);
+	for (int i = 2; i * i <= mx; i++){
+        if (lpf[i] == i){
+            for (int j = i * i; j <= mx; j += i){
+                if (lpf[j] == j){
+                    lpf[j] = i;
+                }
+            }
+        }
+    }
+	
+    vector <int> factors;
+    for (int i = 1; i <= mx; i++){
+        factors.clear();
+        int ni = i;
+        while (ni != 1){
+            if (factors.empty() || factors.back() != lpf[ni]){
+                factors.push_back(lpf[ni]);
+            }
+            ni /= lpf[ni];
+        }
+        for (int f : factors){
+            adj[i].push_back(i / f);
+            adj[i / f].push_back(i);
+        }
+    }
+	
     queue <int> q;
     for (int i = 1; i <= mx; i++){
         if (occ1[i]){
@@ -48,9 +78,7 @@ void BFS1(){
             }
         }
     }
-}
-
-void BFS2(){
+    
     for (int i = 1; i <= mx; i++){
         for (int child : adj[i]){
             int v = closest_marked[i], w = closest_marked[child];
@@ -63,42 +91,6 @@ void BFS2(){
             }
         }
     }
-}
-
-void solve(){
-	int n;
-    cin >> n;
-	vector <int> a(n);
-    for (int i = 0; i < n; i++){
-        cin >> a[i];
-        mx = max(mx, a[i]);
-        if (!occ1[a[i]]){
-            occ1[a[i]] = i + 1;
-        }
-        else if (!occ2[a[i]]){
-            occ2[a[i]] = i + 1;
-        }
-    }
-
-	fill_lpf();
-	int ptr = 0, nx;
-	for (int x = 1; x <= mx; x++){
-		nx = x;
-		ptr = 0;
-		while (lpf[nx] != 0){
-			if (ptr == 0 || factorization[ptr - 1] != lpf[nx]){
-				factorization[ptr++] = lpf[nx];
-			}
-			nx /= lpf[nx];
-		}
-		for (int i = 0; i <= ptr - 1; i++){
-			adj[x].push_back(x / factorization[i]);
-			adj[x / factorization[i]].push_back(x);
-		}
-	}
-	
-    BFS1();
-    BFS2();
 
     for (int i = 0; i < n; i++){
         if (occ2[a[i]]){
@@ -113,15 +105,6 @@ void solve(){
             cout << occ1[other_closest_marked[a[i]]] << "\n";
         }
     }
-}
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t = 1;
-    //cin >> t;
-    while (t--){
-        solve();
-    }
     return 0;
 }
