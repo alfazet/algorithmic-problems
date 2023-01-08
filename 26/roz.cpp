@@ -35,13 +35,6 @@ struct BIT{
 int n, p = 1;
 BIT bit;
 
-void move(){
-    p++;
-    if (p == n + 1){
-        p = 1;
-    }
-}
-
 void inicjuj(int n_){
     n = n_;
     bit.init(n + 1);
@@ -49,7 +42,10 @@ void inicjuj(int n_){
 
 void dodaj(int val){
     bit.update(p, 1LL * val - bit.query(p, p));
-    move();
+    p++;
+    if (p == n + 1){
+        p = 1;
+    }
 }
 
 void koryguj(int i, int val){
