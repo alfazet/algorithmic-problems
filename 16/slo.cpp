@@ -44,9 +44,11 @@ int main(){
 
     // we can use the lightest elephants to sort their entire cycles
     // or we can use the lightest overall but then we have to move him twice
-    lli ans = 0;
+    lli ans = 0, borrow, no_borrow;
     for (int i = 1; i <= c; i++){
-        ans += min((cycle_sz[i] - 1) * lightest[i] + cycle_weight[i] - lightest[i], 2LL * (lightest_all + lightest[i]) + (cycle_sz[i] - 1) * lightest_all + cycle_weight[i] - lightest[i]);
+        borrow = 2LL * (lightest_all + lightest[i]) + (cycle_sz[i] - 1) * lightest_all + cycle_weight[i] - lightest[i];
+        no_borrow = (cycle_sz[i] - 1) * lightest[i] + cycle_weight[i] - lightest[i];
+        ans += min(no_borrow, borrow);
     }
     cout << ans << "\n";
 
