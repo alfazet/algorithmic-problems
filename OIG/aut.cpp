@@ -7,32 +7,41 @@ const lli INF = 1e18 + 3;
 
 struct P{
     lli x, y;
-    
-    P(lli x_ = 0, lli y_ = 0) : x(x_), y(y_) {};
-    
-    P operator -(const P &B) const{
-        return P(x - B.x, y - B.y);    
+
+    P (lli x_ = 0, lli y_ = 0) : x(x_), y(y_) {};
+
+    P operator + (P b){
+        return P(x + b.x, y + b.y);
     }
-    lli operator *(const P &B) const{ // dot product
-        return x * B.x + y * B.y;
+    P operator - (P b){
+        return P(x - b.x, y - b.y);
     }
-	lli cos(const P &B, const P &C){ // sign of cos ABC
-		return (B - *this) * (C - B);
-	}
-    
-    void read(){
-        cin >> x >> y;
+    lli operator ^ (P b){
+        return x * b.y - b.x * y;
+    }
+    lli operator * (P b){
+        return x * b.x + y * b.y;
+    }
+
+    lli sin(P b, P c){ // "sine" of convex angle B->A->C
+        return (b - (*this)) ^ (c - (*this));
+    }
+    lli cos(P b, P c){ // "cosine" of convex angle B->A->C
+        return (b - (*this)) * (c - (*this)); 
     }
 };
+
+istream& operator>> (istream &in, P &a){
+    return in >> a.x >> a.y;
+}
+ostream& operator<< (ostream &out, P &a){
+    return out << "(" << a.x << ", " << a.y << ")";
+}
 
 struct Edge{
 	int u, v, w;
 	
 	Edge(int u_ = 0, int v_ = 0, int w_ = 0) : u(u_), v(v_), w(w_) {};
-	
-	void read(){
-		cin >> u >> v >> w;
-	}
 };
 
 int m;
@@ -65,25 +74,25 @@ int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	
-    int n, p;
+    int n, p, u, v, w;
     cin >> n >> m >> p;
     for (int i = 1; i <= n; i++){
-        coords[i].read();
+        cin >> coords[i];
     }
     for (int i = 1; i <= m; i++){
-        edges[i].read();
+        cin >> u >> v >> w;
+        edges[i] = Edge(u, v, w);
     }
     
     for (int i = 1; i <= m; i++){
 		for (int j = 1; j <= m; j++){
-			if (edges[i].v == edges[j].u && coords[edges[i].u].cos(coords[edges[i].v], coords[edges[j].v]) >= 0){
-				adj[i].push_back({j, edges[i].w + edges[j].w});
+			if (edges[i].v == edges[j].u && coords[edges[i].v].cos(coords[edges[i].u], coords[edges[j].v]) <= 0){
+				adj[i].emplace_back(j, edges[i].w + edges[j].w);
 			}
 		}
 	}
 		
 	vector <lli> ans;
-	int u, v;
 	lli t;
 	cin >> u;
 	for (int i = 0; i < p - 1; i++){
@@ -107,7 +116,7 @@ int main(){
 		ans.push_back((ans.empty() ? 0 : ans.back()) + t);
 		u = v;
 	}
-	for (lli t : times){
+	for (lli t : ans){
 		cout << t << "\n";
 	}
 	
