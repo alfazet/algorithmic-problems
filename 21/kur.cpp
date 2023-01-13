@@ -5,10 +5,9 @@ using namespace std;
 const int BASE = (1 << 19); 
 
 struct Leader{
-    int val, k; // {value, compared to the next most frequent value, how many more times does this one appear?}
+    int val, k; // {value, how many more times does this one appear compared to the next most frequent value}
 
-    Leader() : val(0), k(0) {};
-    Leader(int val_, int k_) : val(val_), k(k_) {};
+    Leader(int val_ = 0, int k_ = 0) : val(val_), k(k_) {};
 
     Leader op(Leader other){
         if (val == other.val){
