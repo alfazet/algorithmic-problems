@@ -60,7 +60,7 @@ int main(){
         return (i + d + n) % n;
     };
 
-    vector <vector <int>> triangle(n, vector <int>(n)), halfplane(n, vector <int>(n));
+    vector <vector <int>> triangle(n, vector <int>(n)), halfplane(n, vector <int>(n)); // sum of values in triangle i-(j-1)-j / halfplane i-j, edge excluded 
     for (int i = 0; i < n; i++){
         refer = poly[i]; // point of reference for angle sort
         sort(a.begin(), a.end(), comp);
