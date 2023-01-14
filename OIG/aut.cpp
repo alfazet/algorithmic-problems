@@ -17,7 +17,7 @@ struct P{
         return P(x - b.x, y - b.y);
     }
     lli operator ^ (P b){
-        return x * b.y - b.x * y;
+        return x * b.y - y * b.x;
     }
     lli operator * (P b){
         return x * b.x + y * b.y;
