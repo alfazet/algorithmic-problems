@@ -32,7 +32,7 @@ ostream& operator<< (ostream &out, P &a){
     return out << "(" << a.x << ", " << a.y << ")"; 
 }
 
-P refer;
+P refer; // point of reference for angle sort
 
 bool comp(pair <P, int> &a, pair <P, int> &b){
     return refer.sin(a.ff, b.ff) > 0;
@@ -62,7 +62,7 @@ int main(){
 
     vector <vector <int>> triangle(n, vector <int>(n)), halfplane(n, vector <int>(n)); // sum of values in triangle i-(j-1)-j / halfplane i-j, edge excluded 
     for (int i = 0; i < n; i++){
-        refer = poly[i]; // point of reference for angle sort
+        refer = poly[i]; 
         sort(a.begin(), a.end(), comp);
 
         int j = nxt(i, 2), k = 0;
