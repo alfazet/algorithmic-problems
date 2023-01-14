@@ -10,9 +10,6 @@ struct P{
 
     P (lli x_ = 0, lli y_ = 0) : x(x_), y(y_) {};
 
-    P operator + (P b){
-        return P(x + b.x, y + b.y);
-    }
     P operator - (P b){
         return P(x - b.x, y - b.y);
     }
