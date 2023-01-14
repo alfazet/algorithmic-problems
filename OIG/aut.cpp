@@ -16,16 +16,10 @@ struct P{
     P operator - (P b){
         return P(x - b.x, y - b.y);
     }
-    lli operator ^ (P b){
-        return x * b.y - y * b.x;
-    }
     lli operator * (P b){
         return x * b.x + y * b.y;
     }
 
-    lli sin(P b, P c){ // "sine" of convex angle B->A->C
-        return (b - (*this)) ^ (c - (*this));
-    }
     lli cos(P b, P c){ // "cosine" of convex angle B->A->C
         return (b - (*this)) * (c - (*this)); 
     }
