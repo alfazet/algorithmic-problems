@@ -2,22 +2,22 @@
 typedef long long int lli;
 using namespace std;
 
-const int BASE = (1 << 19); 
+const int BASE = (1 << 19);
 
 struct Leader{
-    int val, k; // {value, how many more times does this one appear compared to the next most frequent value}
+    int val, stack_sz;
 
-    Leader(int val_ = 0, int k_ = 0) : val(val_), k(k_) {};
+    Leader(int val_ = 0, int stack_sz_ = 0) : val(val_), stack_sz(stack_sz_) {};
 
     Leader op(Leader other){
         if (val == other.val){
-            return Leader(val, k + other.k);
+            return Leader(val, stack_sz + other.stack_sz);
         }
-        if (k > other.k){
-            return Leader(val, k - other.k);
+        else if (stack_sz > other.stack_sz){
+            return Leader(val, stack_sz - other.stack_sz);
         }
         else{
-            return Leader(other.val, other.k - k);
+            return Leader(other.val, other.stack_sz - stack_sz);
         }
     }
 };
@@ -44,46 +44,44 @@ Leader query(int l, int r){
     return ans;
 }
 
-int main (){
+int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+	
     int n, q, l, r;
     cin >> n >> q;
     vector <int> a(n);
-    for (int i = 0; i < n; i++){
-        cin >> a[i];
-    }
 
     for (int i = 0; i < n; i++){
-        st[BASE + i] = {a[i], 1};
+        cin >> a[i];
+        st[i + BASE] = Leader(a[i], 1);
     }
     for (int i = BASE - 1; i >= 1; i--){
         st[i] = st[2 * i].op(st[2 * i + 1]);
     }
 
-    vector <int> cand(q), ans(q), len(q);
-    vector <vector <int>> start(n), finish(n);
+    vector <int> cand(q), len(q), freq(n + 1), freq_of_cand(q), freq_of_cand_at_start(q);
+    vector <vector <int>> starts(n), ends(n);
     for (int i = 0; i < q; i++){
         cin >> l >> r;
         l--, r--;
         len[i] = r - l + 1;
-        cand[i] = query(l, r).val; 
-        start[l].push_back(i);
-        finish[r].push_back(i);
+        starts[l].push_back(i);
+        ends[r].push_back(i);
+        cand[i] = query(l, r).val;
     }
-    vector <int> freq(n + 1);
     for (int i = 0; i < n; i++){
-        for (int x : start[i]){
-            ans[x] = freq[cand[x]];
+        for (int s : starts[i]){
+            freq_of_cand_at_start[s] = freq[cand[s]];
         }
         freq[a[i]]++;
-        for (int x : finish[i]){
-            ans[x] = freq[cand[x]] - ans[x];
+        for (int e : ends[i]){
+            freq_of_cand[e] = freq[cand[e]] - freq_of_cand_at_start[e];
         }
     }
+
     for (int i = 0; i < q; i++){
-        cout << (ans[i] > len[i] / 2 ? cand[i] : 0) << "\n";
+        cout << (freq_of_cand[i] > len[i] / 2 ? cand[i] : 0) << "\n";
     }
 
     return 0;
