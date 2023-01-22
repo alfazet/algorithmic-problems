@@ -11,10 +11,10 @@ char s[MAXN];
 pair <int, int> dp[MAXN];
 
 void rec(int l, int r, int sum){
-	dp[sum] = {l, r};
 	if (sum <= 0){
 		return;
 	}
+	dp[sum] = {l, r};
 	if (s[l] == 'T'){
 		rec(l + 1, r, sum - 2);
 	}
