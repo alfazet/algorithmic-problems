@@ -29,7 +29,7 @@ struct Window{
 
     int query(){
         assert(!q.empty());
-        return q.front().ff.ff;
+        return q.front().ff;
     }
 };
 
