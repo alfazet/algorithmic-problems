@@ -88,7 +88,6 @@ int main(){
     }
 
     for (auto[u, v] : edges){
-        assert(topo_id[u] < topo_id[v]);
         if (topo_id[v] - topo_id[u] > 1){
             update(topo_id[u] + 1, topo_id[v] - 1, to[topo_id[u]] + 1 + from[topo_id[v]]);
         }
