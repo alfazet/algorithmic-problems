@@ -55,7 +55,7 @@ int main(){
             x += (1LL << b);
         }
     }
-    while (c){
+    while (c){ // phi(n) / n < 8n so this is quite fast
         if (gcd(x, n) == 1){
             cout << x << " ";
             c--;
