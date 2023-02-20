@@ -1,2 +1,2 @@
 # problems
-Algorithmic problems
+competitive programming problems 
